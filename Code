@@ -1,0 +1,50 @@
+#include "Header.h"
+
+int main() {
+    int n;
+
+    printf("Введите количество студентов: ");
+    scanf("%d", &n);
+
+    struct Student* students = (struct Student*)malloc(n * sizeof(struct Student));
+
+    inputStudentData(students, n);
+
+    printTopStudent(students, n);
+
+    free(students);
+
+    return 0;
+}
+
+void inputStudentData(struct Student* students, int n) {
+
+    for (int i = 0; i < n; i++) {
+        printf("Введите имя студента #%d: ", i + 1);
+        scanf("%s", students[i].name);
+        printf("Введите возраст студента #%d: ", i + 1);
+        scanf("%d", &students[i].age);
+        printf("Введите средний балл студента #%d: ", i + 1);
+        scanf("%f", &students[i].srPoint);
+        printf("\n");
+    }
+}
+
+void printTopStudent(struct Student* students, int n) {
+
+    int topIndex = 0;
+
+    for (int i = 1; i < n; i++) {
+
+        if (students[i].srPoint > students[topIndex].srPoint) {
+
+            topIndex = i;
+
+        }
+    }
+
+    printf("Студент с наивысшим средним баллом:\n");
+    printf("Имя: %s\n", students[topIndex].name);
+    printf("Возраст: %d\n", students[topIndex].age);
+    printf("Средний балл: %.2f\n", students[topIndex].srPoint);
+}
